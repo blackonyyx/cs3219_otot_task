@@ -1,0 +1,36 @@
+{
+  "name": "cs3219_otot_task",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "An app to pass CS3219_OTOT_Task_B",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "RESTful",
+    "API"
+  ],
+  "author": "Stephen Tan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "mocha": "^10.0.0",
+    "mongodb": "^4.9.1",
+    "mongoose": "^6.5.3",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
