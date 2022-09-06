@@ -1,4 +1,4 @@
-Contact = require('../model/contactModel');
+const Contact = require('../model/contactModel');
 
 // handle index actions
 

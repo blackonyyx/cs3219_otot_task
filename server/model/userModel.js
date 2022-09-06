@@ -1,12 +1,12 @@
 
-import bcrypt from 'bcrypt';
-import validator from 'validator';
-import mongoose, { Schema as _Schema } from 'mongoose';
+const bcrypt = require('bcrypt');
+const validator = require('validator');
+const mongoose = require('mongoose');
 
 
 // Setup Schema
-const Schema = _Schema;
-
+const Schema = mongoose.Schema;
+// response 500 if failed
 const  userSchema = new Schema({
     username: {
         type: String,
@@ -69,10 +69,3 @@ userSchema.methods.comparePassword = function(password, resp) {
 
 
 const User = mongoose.model('User', userSchema);
-
-// Export contacts model
-const Contact = module.exports = mongoose.model('contact', contactSchema);
-
-module.exports.get = function (callback, limit) {
-    Contact.find(callback).limit(limit);
-}

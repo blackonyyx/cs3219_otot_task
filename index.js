@@ -13,7 +13,7 @@ require('dotenv').config();
 
 app.use(express.urlencoded({extended: true} ));
 // resources
-app.use(express.static('frontend'));
+app.use(express.static('public'));
 app.use(expressLayouts);
 
 app.set('layout', './layouts/main');
@@ -31,8 +31,8 @@ app.use('/contacts', contactRoutes);
 app.get('/', (req, res) => res.send('Hello World with Express'));
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/cs3219_otot_task', { useNewUrlParser: true});
-var db = mongoose.connection;
+// mongoose.connect('mongodb://localhost/cs3219_otot_task', { useNewUrlParser: true});
+// var db = mongoose.connection;
 
 
 app.listen(port, () => {
