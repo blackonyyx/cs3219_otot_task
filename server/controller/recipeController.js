@@ -1,13 +1,19 @@
-require("../model/db");
-const CategoryTest = require("../model/categoryModel");
-/**
- * Get /
- * Homepage
- */
+// import * as db from '../model/db.js'
+// import CategoryTest from '../model/categoryModel.js'
+// /**
+//  * Get /
+//  * Homepage
+//  */
 
-exports.homepage = async (req, res) => {
-  res.render("index", { title: "Homepage" });
-};
+// export default async function homepage (req, res) {
+//   try {
+//     const limit = 5
+//     const categories = await CategoryTest.find({}).limit(limit)
+//     res.render('index', { title: 'Homepage', category: categories })
+//   } catch (error) {
+//     res.status(500).send({ message: error.message || ' Error Occurred!' })
+//   }
+// }
 
 // async function insertDummyCatData() {
 //   try {

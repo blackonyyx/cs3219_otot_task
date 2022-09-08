@@ -25,37 +25,23 @@
 <!-- Categories Start -->
 <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4">
 
+    <% if (categories != '') { %>
+    <% categories.forEach(function(category, index) { 
     <a href="#" class="col text-center category__link">
         <div class="category__img shadow">
-            <img src="img/saltinecracker.jpeg" alt="Saltine Crackers" loading="lazy" />
+            <img src="img/<%- category.image %>" alt="<%- category.name %>" loading="lazy" />
         </div>
         <div class="pt-1">Saltine Crackers Steaks</div>
     </a>
-    <a href="#" class="col text-center category__link">
-        <div class="category__img shadow">
-            <img src="img/saltinecracker.jpeg" alt="Saltine Crackers" loading="lazy" />
-        </div>
-        <div class="pt-1">Saltine Crackers Steaks</div>
-    </a>
-    <a href="#" class="col text-center category__link">
-        <div class="category__img shadow">
-            <img src="img/saltinecracker.jpeg" alt="Saltine Crackers" loading="lazy" />
-        </div>
-        <div class="pt-1">Saltine Crackers Steaks</div>
-    </a>
-
-    <a href="#" class="col text-center category__link">
-        <div class="category__img shadow">
-            <img src="img/saltinecracker.jpeg" alt="Saltine Crackers" loading="lazy" />
-        </div>
-        <div class="pt-1">Saltine Crackers Steaks</div>
-    </a>
+    <% } %>
     <a href="/categories" class="col text-center category__link">
         <div class="category__img shadow">
             <img src="/img/pb.svg" width="200" height="160" alt="View All Categories" loading="lazy" />
         </div>
         <div class="pt-1">View All Categories</div>
     </a>
+<% })} %>
+
 </div>
 <!-- Categories End -->
 
@@ -71,31 +57,29 @@
     <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
         <a href="/recipe/#" class="col text-center category__link">
             <div class="category__img category__img--large shadow">
-                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy">
+                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy"/>
             </div>
             <div class="pt-1">Jello Surprise &#60; $5</div>
         </a>
         <a href="/recipe/#" class="col text-center category__link">
             <div class="category__img category__img--large shadow">
-                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy">
+                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy"/>
             </div>
             <div class="pt-1">Jello Surprise &#60; $5</div>
         </a>
         <a href="/recipe/#" class="col text-center category__link">
             <div class="category__img category__img--large shadow">
-                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy">
+                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy"/>
             </div>
             <div class="pt-1">Jello Surprise &#60; $5</div>
         </a>
         <a href="/recipe/#" class="col text-center category__link">
             <div class="category__img category__img--large shadow">
-                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy">
+                <img src="img/jellosurprise.jpeg" width="200" height="330" alt="View All Categories" loading="lazy"/>
             </div>
             <div class="pt-1">Jello Surprise &#60; $5</div>
         </a>
     </div>
-
-
 </section>
 
 <!-- Latest End -->

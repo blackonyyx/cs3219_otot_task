@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const recipeController = require('../controller/recipeController')
+// import express from 'express'
+// import recipeController from '../controller/recipeController.js'
+// const router = express.Router()
 
-/**
- * App routes
- */
-router.get('/', recipeController.homepage)
+// /**
+//  * App routes
+//  */
+// router.get('/recipes', recipeController.homepage)
 
-module.exports = router;
+// export default router

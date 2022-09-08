@@ -1,43 +1,50 @@
 // Import express
-const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
-// Import Body parser
-let bodyParser = require('body-parser');
-// Import Mongoose
-let mongoose = require('mongoose');
-// Initialise the app
+// import mongoose from 'mongoose'
+// import template from './views/layouts/template.js'
+// import React from 'react'
+// import { renderToString } from 'react-dom/server'
+// import App from './app/index.js'
+// import routes from './server/api-routes/recipeRoutes.js'
+// import expressLayouts from 'express-ejs-layouts';
+import express from "express";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import compression from "compression";
+import ssr from "./frontend/frontend-routes/ssr.js";
+// import template from './views/layouts/template.js'
+dotenv.config();
 const app = express();
-const port = process.env.PORT || 8080;
 
-require('dotenv').config();
+app.use(compression());
+app.use(express.static("public"));
 
-app.use(express.urlencoded({extended: true} ));
+app.use("/assets", express.static("assets"));
+// Initialise the app
+
+app.use("/firstssr", ssr);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 8000;
+
+app.listen(port, function listenHandler() {
+  console.info(`Running on ${port}...`);
+});
 // resources
-app.use(express.static('public'));
-app.use(expressLayouts);
+// app.use(expressLayouts);
+// app.set('layout', './layouts/main');
+// app.set('view engine', 'ejs');
 
-app.set('layout', './layouts/main');
-app.set('view engine', 'ejs');
+// app.use('/', routes)
 
-
-
-const routes = require('./server/api-routes/recipeRoutes.js');
-app.use('/', routes);
-
-const contactRoutes = require("./server/api-routes/contactRoutes.js");
-app.use('/contacts', contactRoutes);
+// app.use('/contacts', contactRoutes)
 
 // Home page
-app.get('/', (req, res) => res.send('Hello World with Express'));
+// app.get('/', (req, res) => res.send('Hello World with Express'))
 
 // Connect to Mongoose and set connection variable
 // mongoose.connect('mongodb://localhost/cs3219_otot_task', { useNewUrlParser: true});
 // var db = mongoose.connection;
-
-
-app.listen(port, () => {
-    console.log("Running RestHub on port " + port);
-});
 
 // // Import routes
 // let apiRoutes = require("./api-routes");
