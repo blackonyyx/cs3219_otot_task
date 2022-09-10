@@ -65,7 +65,7 @@ router.get("/", async (req, res) => {
         <div id="reactele">{{{reactele}}}</div>
 
           <footer class="py-5">
-          <p>Built with love for CS3219 <3</p>
+          <p>Built with love for CS3219 &#10084;&#65039;</p>
         </footer>
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -84,11 +84,9 @@ router.get("/", async (req, res) => {
       ></script>
         <script src="/assets/bundle.js"></script>
         </body>
-        
       </html>
 
   `;
-
   const hbsTemplate = hbs.compile(theHtml);
   const reactComp = renderToString(<App />);
   const htmlToSend = hbsTemplate({ reactele: reactComp });

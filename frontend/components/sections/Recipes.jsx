@@ -8,7 +8,6 @@ function Recipes({ list }) {
       <div className="d-flex mb-2 align-items-center">
         <h2>Latest Recipes</h2>
         <a href="/explore-latest" className="ms-auto">
-          {" "}
           View More
         </a>
       </div>
@@ -22,3 +21,5 @@ function Recipes({ list }) {
 Recipes.propTypes = {
   list: PropTypes.array,
 };
+
+export default Recipes;

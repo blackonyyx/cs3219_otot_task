@@ -8,17 +8,20 @@ function Categories({ list }) {
       <div className="d-flex mb-2 align-items-center">
         <h2>Latest Recipes</h2>
         <a href="/explore-latest" className="ms-auto">
-          {" "}
           View More
         </a>
       </div>
 
       <div className="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
         {list.map(Category)}
-        <a href="/categories" className="col text-center category__link">
+        <a
+          key="view_all"
+          href="/categories"
+          className="col text-center category__link"
+        >
           <div className="category__img shadow">
             <img
-              src="/img/pb.svg"
+              src="img/../../assets/img/pb.svg"
               width="200"
               height="160"
               alt="View All Categories"
@@ -35,3 +38,5 @@ function Categories({ list }) {
 Categories.propTypes = {
   list: PropTypes.array,
 };
+
+export default Categories;

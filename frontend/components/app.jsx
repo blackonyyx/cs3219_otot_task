@@ -1,66 +1,63 @@
 import React from "react";
+import Recipes from "./sections/Recipes.jsx";
+import Categories from "./sections/Categories.jsx";
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-
-    this.state = {
-      name: "",
-      msg: "",
-    };
-  }
-
-  // Handlers
-  handleButtonClick = (e) => {
-    const nameLen = this.state.name.length;
-    if (nameLen > 0) {
-      this.setState({
-        msg: `You name has ${nameLen} characters including space`,
-      });
-    }
+export default function App() {
+  const [times, setTimes] = React.useState(0);
+  const contentTest = {
+    category: [
+      {
+        name: "saltine1",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/categories",
+      },
+      {
+        name: "saltine2",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/categories",
+      },
+      {
+        name: "saltine3",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/categories",
+      },
+      {
+        name: "saltine4",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/categories",
+      },
+    ],
+    recipe: [
+      {
+        name: "saltine5",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/recipes",
+      },
+      {
+        name: "saltine6",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/recipes",
+      },
+      {
+        name: "saltine7",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/recipes",
+      },
+      {
+        name: "saltine8",
+        image: "../../assets/img/saltinecracker.jpeg",
+        link: "/recipes",
+      },
+    ],
   };
 
-  handleTextChange = (e) => {
-    this.setState({ name: e.target.value });
-  };
-
-  handleReset = () => {
-    this.setState({ name: "", msg: "" });
-  };
-  // End Handlers
-
-  render() {
-    let msg;
-
-    if (this.state.msg !== "") {
-      msg = <p>{this.state.msg}</p>;
-    } else {
-      msg = "";
-    }
-    return (
-      // do something here where there is a button that will replace the text
-      <div>
-        <label>Your name </label>
-        <input
-          type="text"
-          id="txtName"
-          name="txtName"
-          value={this.state.name}
-          onChange={this.handleTextChange}
-        />
-        <button id="btnSubmit" onClick={this.handleButtonClick}>
-          Calculate Name Length
-        </button>
-        <button id="btnReset" onClick={this.handleReset}>
-          Reset All
-        </button>
-        <hr />
-        {msg}
-      </div>
-    );
-  }
+  return (
+    // do something here where there is a button that will replace the text
+    <div>
+      <Categories list={contentTest.category} />
+      <Recipes list={contentTest.recipe} />
+      <h1>Hello {times}</h1>
+      <button onClick={() => setTimes((times) => times + 1)}>ADD</button>
+    </div>
+  );
 }
-export default App;

@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 
 function Category({ image, name, link }) {
   return (
-    <a href={`${link}`} className="col text-center category__link">
+    <a
+      key={image + "_" + name}
+      href={`${link}`}
+      className="col text-center category__link"
+    >
       <div className="category__img shadow">
         <img src={`img/${image}`} alt={name} loading="lazy" />
       </div>

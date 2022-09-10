@@ -11,25 +11,39 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import compression from "compression";
 import ssr from "./frontend/frontend-routes/ssr.js";
+import recipeRoutes from "./api/api-routes/recipeRoutes.js.js";
+import contactRoutes from "./api/api-routes/contributorRoutes.js";
+import errorController from "./api/error/errorController.js";
+// import userRoutes from './server/api-routes/userRoutes.js'
+
+import connectDB from "./api/model/db.js.js";
 // import template from './views/layouts/template.js'
 dotenv.config();
 const app = express();
 
 app.use(compression());
 app.use(express.static("public"));
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+connectDB();
 app.use("/assets", express.static("assets"));
 // Initialise the app
+// frontend
+app.use("/", ssr);
 
-app.use("/firstssr", ssr);
-
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(errorController);
+// backend
+app.use("/server/recipes", recipeRoutes);
+app.use("/server/contributor", contactRoutes);
+// app.use('/server/users', userRoutes)
 
 const port = process.env.PORT || 8000;
 
 app.listen(port, function listenHandler() {
   console.info(`Running on ${port}...`);
 });
+
+export default app;
 // resources
 // app.use(expressLayouts);
 // app.set('layout', './layouts/main');
@@ -49,20 +63,8 @@ app.listen(port, function listenHandler() {
 // // Import routes
 // let apiRoutes = require("./api-routes");
 // // Configure bodyparser to handle post requests
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
+
 // app.use(bodyParser.json());
-
-// // Added check for DB connection
-// if(!db)
-//     console.log("Error connecting db")
-// else
-//     console.log("Db connected successfully")
-
-// // Setup server port
-
-// // Send message for default URL
 
 // // Use Api routes in the App
 // app.use('/api', apiRoutes);
