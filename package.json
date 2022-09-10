@@ -14,7 +14,7 @@
     "**/*.{js,jsx,ts,tsx,mjs}": [
       "prettier --write --ignore-unknown",
       "npx eslint --fix"
-    ]
+    ] 
   },
   "keywords": [
     "RESTful",

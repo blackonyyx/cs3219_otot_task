@@ -1,9 +1,9 @@
 // contactModel.js
-import mongoose from "mongoose";
-import validator from "validator";
+import mongoose from "mongoose"
+import validator from "validator"
 
 // Setup Schema
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const contributorSchema = new Schema({
   name: {
@@ -15,7 +15,7 @@ const contributorSchema = new Schema({
     type: String,
     required: true,
     unique: [true, "Only one email can be registered for a account"],
-    validate: [validator.isEmail, "Not a email"],
+    validate: [validator.isEmail, "Not a email so there"],
   },
   gender: String,
   phone: {
@@ -31,13 +31,13 @@ const contributorSchema = new Schema({
     default: Date.now,
   },
   userDescription: String,
-});
+})
 
 // Export contacts model
-const Contributor = mongoose.model("contributor", contributorSchema);
+const Contributor = mongoose.model("contributor", contributorSchema)
 
 Contributor.get = (callback, limit) => {
-  Contributor.find(callback).limit(limit);
-};
+  Contributor.find(callback).limit(limit)
+}
 
-export default Contributor;
+export default Contributor
