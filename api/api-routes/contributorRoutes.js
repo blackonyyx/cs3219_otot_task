@@ -1,8 +1,8 @@
-import * as contactController from "../controller/contributorController.js";
+import * as contactController from "../controller/contributorController.js"
 
-import Router from "express";
+import Router from "express"
 
-const router = Router();
+const router = Router()
 // Set default API response
 router.get("/", function (req, res) {
   res.json({
@@ -13,20 +13,20 @@ router.get("/", function (req, res) {
       "GET/POST: /contributor",
       "GET/POST/PUT/DELETE: contributor/:contributor_id",
     ],
-  });
-});
+  })
+})
 
 router
   .route("/contributor")
   .get(contactController.showAllContributor)
-  .post(contactController.createContributor);
+  .post(contactController.createContributor)
 
 router
   .route("/contributor/:contributor_id")
   .get(contactController.viewContributor)
   .patch(contactController.updateContributor)
   .put(contactController.updateContributor)
-  .delete(contactController.deleteContributor);
+  .delete(contactController.deleteContributor)
 
 // Export API routes
-export default router;
+export default router

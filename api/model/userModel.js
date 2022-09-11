@@ -1,9 +1,9 @@
-import bcrypt from "bcrypt";
-import { isAlphanumeric, isEmail } from "validator";
-import mongoose from "mongoose";
+import bcrypt from "bcrypt"
+import { isAlphanumeric, isEmail } from "validator"
+import mongoose from "mongoose"
 
 // Setup Schema
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 // response 500 if failed
 const userSchema = new Schema({
   username: {
@@ -36,42 +36,42 @@ const userSchema = new Schema({
     required: [true, "Retype your password."],
     validate: {
       validator: function (el) {
-        return el === this.password;
+        return el === this.password
       },
       message: "The passwords do not match",
     },
   },
-});
+})
 
 userSchema.pre("save", async function (next) {
-  const user = this;
+  const user = this
   if (this.isModified("password") || this.isNew) {
     bcrypt.genSalt(12, function (saltError, salt) {
       if (saltError) {
-        return next(saltError);
+        return next(saltError)
       } else {
         bcrypt.hash(user.password, salt, function (hashError, hash) {
           if (hashError) {
-            return next(hashError);
+            return next(hashError)
           }
-          user.password = hash;
-          next();
-        });
+          user.password = hash
+          next()
+        })
       }
-    });
+    })
   } else {
-    return next();
+    return next()
   }
-});
+})
 
 userSchema.methods.comparePassword = function (password, callback) {
   bcrypt.compare(password, this.password, function (err, isMatch) {
     if (err) {
-      return callback(err);
+      return callback(err)
     } else {
-      callback(null, isMatch);
+      callback(null, isMatch)
     }
-  });
-};
+  })
+}
 
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model("User", userSchema)

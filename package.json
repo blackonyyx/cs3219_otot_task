@@ -4,7 +4,7 @@
   "description": "An app to pass CS3219_OTOT_Task_B",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --timeout 200 -r @babel/register --exit",
     "start": "nodemon server.js",
     "dev": "nodemon --exec babel-node server.js",
     "webpack": "webpack -wd",
@@ -14,7 +14,7 @@
     "**/*.{js,jsx,ts,tsx,mjs}": [
       "prettier --write --ignore-unknown",
       "npx eslint --fix"
-    ] 
+    ]
   },
   "keywords": [
     "RESTful",
@@ -54,12 +54,14 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.19.0",
     "@babel/preset-react": "^7.18.6",
+    "@babel/register": "^7.18.9",
     "@types/compression": "^1.7.2",
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
+    "coffeescript": "^2.7.0",
     "core-js": "^3.25.1",
     "css-loader": "^6.7.1",
     "eslint": "^8.23.0",

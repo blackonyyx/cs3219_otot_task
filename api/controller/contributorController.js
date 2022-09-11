@@ -1,5 +1,4 @@
-import Contributor from "../model/contributorModel.js";
-
+import Contributor from "../model/contributorModel.js"
 // handle index actions
 
 export const showAllContributor = async (req, res) => {
@@ -8,94 +7,138 @@ export const showAllContributor = async (req, res) => {
       return res.status(404).json({
         status: "error",
         message: err,
-      });
+      })
     }
     return res.status(200).json({
       status: "success",
       message: "Contributors retrieved successfully",
       data: contributor,
-    });
-  });
-};
+    })
+  })
+}
 
 // create contact actions
 export const createContributor = async (req, res) => {
   // console.log(req.body)
-  const contributor = new Contributor({
-    name: req.body.name,
-    email: req.body.email,
-    gender: req.body.gender,
-    phone: req.body.phone,
-    userDescription: req.body.userDescription,
-  });
-
-  contributor.save(function (err) {
-    if (err) {
-      return res.status(500).json({ err });
+  try {
+    const val = {
+      name: req.body.name,
+      email: req.body.email,
     }
-    res.status(201).json({
+    if (req.body.gender) {
+      val.gender = req.body.gender
+    }
+    if (req.body.phone) {
+      val.phone = req.body.phone
+    }
+    if (req.body.userDescription) {
+      val.userDescription = req.body.userDescription
+    }
+    const contributor = new Contributor(val)
+    await contributor.save()
+    return res.status(201).json({
       message: "contributor has been created",
       data: contributor,
-    });
-  });
-};
+    })
+  } catch (err) {
+    if ((err.name === "MongoServerError") & (err.code === 11000)) {
+      return res.status(400).json({
+        error: err,
+        message: "Duplicate Error Occurred",
+      })
+    } else {
+      return res.status(400).json({
+        error: err,
+        message: "Validation Error Occurred",
+      })
+    }
+  }
+}
 
 // Contributor view
 export const viewContributor = async function (req, res) {
-  Contributor.findById(req.params.contributor_id, function (err, contributor) {
-    if (err) {
-      res.status(404).json({
-        error: err,
-      });
-    }
-    res.json(200, {
-      message: "Contributor details are loading",
-      data: contributor,
-    });
-  });
-};
+  try {
+    Contributor.findById(
+      req.params.contributor_id,
+      function (err, contributor) {
+        if (err) {
+          return res.status(404).json({
+            error: err,
+            message: "file not found",
+          })
+        }
+        return res.status(200).json({
+          message: "Contributor details are loading",
+          data: contributor,
+        })
+      }
+    )
+  } catch (err) {
+    return res.status(400).json({
+      error: err,
+    })
+  }
+}
 
 // Contributor update
 export const updateContributor = function (req, res) {
   Contributor.findById(req.params.contributor_id, function (err, contributor) {
-    if (err) res.send(err);
-    contributor.name = req.body.name ? req.body.name : contributor.name;
-    contributor.gender = req.body.gender ? req.body.gender : contributor.gender;
-    contributor.email = req.body.email ? req.body.email : contributor.email;
-    contributor.phone = req.body.phone ? req.body.phone : contributor.phone;
-    contributor.update_date = Date.now(); // last updated date
-    contributor.userDescription = req.body.userDescription
-      ? req.body.gender
-      : contributor.gender;
+    if (err) {
+      return res.status(404).json({
+        message: "Cannot find contributor",
+        error: err,
+      })
+    }
+    if (req.body.name || contributor.name) {
+      contributor.name = req.body.name || contributor.name
+    }
+    if (req.body.email || contributor.email) {
+      contributor.email = req.body.email || contributor.email
+    }
+    if (req.body.gender || contributor.gender) {
+      contributor.gender = req.body.gender || contributor.gender
+    }
+    if (req.body.phone || contributor.phone) {
+      contributor.phone = req.body.phone || contributor.phone
+    }
+    if (req.body.userDescription || contributor.userDescription) {
+      contributor.userDescription =
+        req.body.userDescription || contributor.userDescription
+    }
     // save contact and check for errors
     contributor.save(function (err) {
       if (err) {
-        res.status(500).json({
+        return res.status(500).json({
           error: err,
-        });
+          message: "Validation Error Occurred",
+        })
       }
-      res.status(200).json({
+      return res.status(200).json({
         message: "Contributor Info updated",
         data: contributor,
-      });
-    });
-  });
-};
+      })
+    })
+  })
+}
 
 // Contributor delete
 export const deleteContributor = async function (req, res) {
-  Contributor.remove(
+  Contributor.deleteOne(
     {
       _id: req.params.contributor_id,
     },
     function (err, contributor) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).send({
+          error: err,
+          message: "Contributor Id not found",
+        })
+      } else {
+        res.status(200).json({
+          status: "success",
+          message: `Contributor ${req.params.contributor_id} deleted successfully`,
+        })
       }
-      res.status(200).json({
-        status: "success",
-        message: `Contributor ${contributor.name} deleted successfully`,
-      });
     }
-  );
-};
+  )
+}

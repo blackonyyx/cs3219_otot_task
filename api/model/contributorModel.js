@@ -8,18 +8,19 @@ const Schema = mongoose.Schema
 const contributorSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Name is a required field"],
     validate: [validator.isAlphanumeric, "Name must be a alphanumeric alias"],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is a required field"],
     unique: [true, "Only one email can be registered for a account"],
     validate: [validator.isEmail, "Not a email so there"],
   },
   gender: String,
   phone: {
     type: String,
+    required: false,
     validate: [validator.isMobilePhone, "Not a valid phone number"],
   },
   create_date: {
@@ -36,7 +37,7 @@ const contributorSchema = new Schema({
 // Export contacts model
 const Contributor = mongoose.model("contributor", contributorSchema)
 
-Contributor.get = (callback, limit) => {
+Contributor.get = async (callback, limit) => {
   Contributor.find(callback).limit(limit)
 }
 

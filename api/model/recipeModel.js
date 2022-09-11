@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const recipeSchema = new mongoose.Schema({
   name: {
@@ -27,10 +27,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: [true, "This field is required."],
   },
-});
+})
 
 // recipeSchema.index({ name: 'text', description: 'text' })
 // WildCard Indexing
 // recipeSchema.index({ "$**" : 'text' });
 
-export const Recipe = mongoose.model("Recipe", recipeSchema);
+export const Recipe = mongoose.model("Recipe", recipeSchema)
