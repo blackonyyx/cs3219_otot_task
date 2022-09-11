@@ -4,7 +4,7 @@
   "description": "An app to pass CS3219_OTOT_Task_B",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 200 -r @babel/register --exit",
+    "test": "mocha --timeout 2000 -r @babel/register --exit",
     "start": "nodemon server.js",
     "dev": "nodemon --exec babel-node server.js",
     "webpack": "webpack -wd",
