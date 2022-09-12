@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 
 function Recipe({ image, name, link }) {
   return (
@@ -19,13 +19,13 @@ function Recipe({ image, name, link }) {
       </div>
       <div className="pt-1">{name}</div>
     </a>
-  );
+  )
 }
 
 Recipe.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
-};
+}
 
-export default Recipe;
+export default Recipe

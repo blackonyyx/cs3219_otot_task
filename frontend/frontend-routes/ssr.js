@@ -1,10 +1,10 @@
-import express from "express";
-import App from "../components/app.jsx";
-import React from "react";
-import { renderToString } from "react-dom/server";
-import hbs from "handlebars";
+import express from "express"
+import App from "../../frontend-b3/src/components/app.jsx"
+import React from "react"
+import { renderToString } from "react-dom/server"
+import hbs from "handlebars"
 
-const router = express.Router();
+const router = express.Router()
 
 router.get("/", async (req, res) => {
   const theHtml = `
@@ -86,11 +86,11 @@ router.get("/", async (req, res) => {
         </body>
       </html>
 
-  `;
-  const hbsTemplate = hbs.compile(theHtml);
-  const reactComp = renderToString(<App />);
-  const htmlToSend = hbsTemplate({ reactele: reactComp });
-  res.send(htmlToSend);
-});
+  `
+  const hbsTemplate = hbs.compile(theHtml)
+  const reactComp = renderToString(<App />)
+  const htmlToSend = hbsTemplate({ reactele: reactComp })
+  res.send(htmlToSend)
+})
 
-export default router;
+export default router
