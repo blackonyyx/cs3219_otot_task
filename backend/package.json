@@ -1,0 +1,80 @@
+{
+  "name": "cs3219_otot_task",
+  "version": "1.0.0",
+  "description": "An app to pass CS3219_OTOT_Task_B",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha --timeout 20000 -r @babel/register --exit",
+    "start": "babel-node server.js",
+    "dev": "nodemon --exec babel-node server.js",
+    "webpack": "webpack -wd"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,mjs}": [
+      "prettier --write --ignore-unknown",
+      "npx eslint --fix"
+    ]
+  },
+  "engines": {
+    "node": "18.9.0"
+  },
+  "keywords": [
+    "RESTful",
+    "API"
+  ],
+  "author": "Stephen Tan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.9.1",
+    "mongoose": "^6.5.3",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.0",
+    "@babel/node": "^7.18.10",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.18.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.19.0",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/register": "^7.18.9",
+    "@types/compression": "^1.7.2",
+    "@types/react-dom": "^18.0.6",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-preset-react": "^6.24.1",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "coffeescript": "^2.7.0",
+    "core-js": "^3.25.1",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.7",
+    "json-loader": "^0.5.7",
+    "lint-staged": "^13.0.3",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.19",
+    "prettier": "2.7.1",
+    "snazzy": "^9.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
