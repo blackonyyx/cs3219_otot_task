@@ -1,0 +1,15 @@
+language: node.js
+node_js:
+- 18
+before_install:
+- cd backend
+- npm install -g npm
+script:
+- npm install
+- npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: 5lwNbhWF1nG0OLsVrEtrlEPneQZvpAH0kLg+wOZXuVh4Yyg8xK2e/M6vkYIvroa//eseVD1ZsHvu4GcsIjHd3ogYyNc/goxQIpMZcfknjIbb5ra0TgSQDB8TljWcCFGS/GmeQqFnFZhJ618Fw+G0bgrzcM67PCJac9+U0zdUNRIKwLSW2P3fc9gELz/Mu1ZGleOzNt5ruAV/X5LPhotZ2OflTWxv470pBDCAHdEYyPIDAH2F0/2AuvXinyCoHYt9ghxZtKTnTShFIqkpNl3PU5wybNjXLsDQ02ifkoF8PQeidX1iFdInW/dT6KOKnMrrP7+niBc4DtXW90ReRhLh0jZBj1YlHOFfuD5KwzpjF5aGVC8v7oLedXWuFp6OrloaL+EmWap5bDyI3TRr8bXsJCutayCrS1eqa0b2Y9Vblc1ldwqZsUiJpEWD4/3sHyevkQtnF7e5+XyYfFLW2HRlHRj4Cssg+8zN6M7D5RDV2JD/FJz9XrzuBH31gJa/6ohbCXXLcx1fn1q2h58sAEhJ6SwuLsToCLxvy492ZoEb/GjoKaLHdU+x06QDbPcvXOwRGmNcZYoPkQnsaaGhFxzFIB/RXKePtlvHeXJS+bQr84RYOHVpbqZ2Tgc7/ORWlUQ4Vv5/vQxkoVI0RLyNN1TybgeBXvrtyC1xhTNoLMw6hwo=
+  app: polar-ocean-92252
+  skip_cleanup: true

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "An app to pass CS3219_OTOT_Task_B",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "test": "mocha --timeout 20000 -r @babel/register --exit",
-    "start": "babel-node server.js",
+    "build": "babel lib -d dist",
+    "start": "npm run build && node dist/server.js",
     "dev": "nodemon --exec babel-node server.js",
-    "webpack": "webpack -wd"
+    "serve": "node dist/server.js"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,mjs}": [

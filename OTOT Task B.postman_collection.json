@@ -1,0 +1,634 @@
+{
+	"info": {
+		"_postman_id": "bda831b8-5e11-41af-8c21-cfb1a80e815d",
+		"name": "OTOT Task B",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13132944"
+	},
+	"item": [
+		{
+			"name": "Localhost",
+			"item": [
+				{
+					"name": "[POST] Post Contributor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"contributor_id\", jsonData.data._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john1112@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Lorum Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Index of Contributors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Single Contributor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] Single Contributor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    pm.collectionVariables.set(\"contributor_id\", null);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Single Contributor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Don",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Lorum Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PUT] Update Single Contributor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Don",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Cheap food, steals and deals",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{localhost}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Backend Server",
+			"item": [
+				{
+					"name": "[POST] Post Contributor Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"contributor_id\", jsonData.data._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "asdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Lorum Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{deployed}}/server/contributor/contributor",
+							"protocol": "http",
+							"host": [
+								"{{deployed}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Index of Contributors Copy",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Single Contributor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{deployed}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{deployed}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] Single Contributor Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    pm.collectionVariables.set(\"contributor_id\", null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{deployed}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{deployed}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Single Contributor",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Don",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Lorum Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{deployed}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{deployed}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PUT] Update Single Contributor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Don",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "userDescription",
+									"value": "Lorum Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{deployed}}/server/contributor/contributor/:contributor_id",
+							"protocol": "http",
+							"host": [
+								"{{deployed}}"
+							],
+							"path": [
+								"server",
+								"contributor",
+								"contributor",
+								":contributor_id"
+							],
+							"variable": [
+								{
+									"key": "contributor_id",
+									"value": "{{contributor_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "portnum",
+			"value": "8000",
+			"type": "string"
+		},
+		{
+			"key": "localhost",
+			"value": "{{local}}:{{portnum}}",
+			"type": "string"
+		},
+		{
+			"key": "contributor_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "deployed",
+			"value": "polar-ocean-92252.herokuapp.com",
+			"type": "string"
+		}
+	]
+}
