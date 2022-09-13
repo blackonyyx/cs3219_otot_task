@@ -15,8 +15,8 @@ jobs:
 
     runs-on: ubuntu-latest
     defaults:
-      run:
-        working-directory: ./backend
+       run:
+         working-directory: ./backend/
     strategy:
       matrix:
         node-version: [16.x]
@@ -34,15 +34,9 @@ jobs:
       uses: actions/setup-node@v3 # clones parallet matrix of node versions
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm run build --if-present
-    
-    - uses: nick-fields/retry@v2 # retrys npm testing 3 times
-      with:
-        timeout_minutes: 5
-        max_attempts: 10
-        retry_wait_seconds: 15
-    - run: npm test
+    - run: |
+        npm ci
+        npm test
 
   deploy-backend:
     needs: build_backend
