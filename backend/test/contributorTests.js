@@ -43,6 +43,11 @@ const createContributorPassMinFields2 = {
   email: "john12@gmail.com",
 }
 
+const createContributorPassMinFields3 = {
+  name: "John",
+  email: "john13213@gmail.com",
+}
+
 const createContributorFailEmail = {
   name: "John!!!",
   email: "john1mail",
@@ -308,7 +313,7 @@ describe("server/contributor/contributor", () => {
     let id = 0
     describe("Successful Deletion", () => {
       before(() => {
-        const contrib = new Contributor(createContributorPassMinFields)
+        const contrib = new Contributor(createContributorPassMinFields3)
         contrib.save((err) => {
           if (err) console.log(err)
         })
