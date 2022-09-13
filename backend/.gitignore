@@ -7,9 +7,11 @@ dist
 # Coveralls
 .nyc_output
 coverage
+.env
 
 # Benchmarking
 benchmarks/graphs
+united-perigee-318916-407034b16ebf.json
 
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore

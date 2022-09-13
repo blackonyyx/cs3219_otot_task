@@ -1,7 +1,7 @@
 /* eslint-disable n/handle-callback-err */
-import Contributor from "../api/model/contributorModel.js"
+import Contributor from "../lib/api/model/contributorModel.js"
 
-import app from "../server.js"
+import app from "../lib/server.js"
 import chai from "chai"
 import chaiHttp from "chai-http"
 

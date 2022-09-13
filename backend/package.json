@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --timeout 20000 -r @babel/register --exit",
-    "build": "babel lib -d dist",
-    "start": "npm run build && node dist/server.js",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && babel lib -d dist",
+    "start": "node dist/server.js",
     "dev": "nodemon --exec babel-node server.js",
     "serve": "node dist/server.js"
   },
@@ -74,6 +75,7 @@
     "nodemon": "^2.0.19",
     "prettier": "2.7.1",
     "snazzy": "^9.0.0",
+    "supertest": "^6.2.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }

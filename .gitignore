@@ -3,13 +3,13 @@ node_modules
 package-lock.json
 *.log
 *.gz
-
+.env
 # Coveralls
 .nyc_output
 coverage
 
 # Benchmarking
 benchmarks/graphs
-
+backend/united-perigee-318916-407034b16ebf.json
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore
