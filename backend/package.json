@@ -4,7 +4,7 @@
   "description": "An app to pass CS3219_OTOT_Task_B",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 20000 -r @babel/register -r mocha-steps --exit",
+    "test": "mocha --timeout 30000 -r @babel/register -r mocha-steps --exit",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && babel lib -d dist",
     "start": "node dist/server.js",
