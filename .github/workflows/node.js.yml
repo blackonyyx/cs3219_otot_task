@@ -45,7 +45,7 @@ jobs:
         command: |
           cd backend
           npm test
-
+          
   deploy-backend:
     needs: build_backend
     
@@ -56,10 +56,11 @@ jobs:
         
     steps: 
     - uses: actions/checkout@v3 # clones and enters repo
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          project_id: ${{secrets.GCP_PROJECT}}
+          service_account_key: ${{secrets.GCP_SA_KEY}}
     
     - name: Deploy
       uses: google-github-actions/deploy-appengine@v0
@@ -67,7 +68,4 @@ jobs:
         working_directory: backend
         deliverables: app.yaml
         project_id: ${{ secrets.GCP_PROJECT }}
-        credentials: ${{ secrets.GCP_SA_KEY }}
-        promote: true
-        version: v1
       
