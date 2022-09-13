@@ -4,7 +4,7 @@ import Contributor from "../lib/api/model/contributorModel.js"
 import app from "../lib/server.js"
 import chai from "chai"
 import chaiHttp from "chai-http"
-import { step } from "mocha-steps"
+// import { it } from "mocha-steps"
 
 // Configure chai
 chai.use(chaiHttp)
@@ -77,7 +77,7 @@ describe("server/contributor/contributor", () => {
       id = contrib._id.toString()
     })
 
-    step("should get all contributor records", (done) => {
+    it("should get all contributor records", (done) => {
       chai
         .request(app)
         .get("/server/contributor/contributor")
@@ -88,7 +88,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should get single contact by specific id", (done) => {
+    it("should get single contact by specific id", (done) => {
       chai
         .request(app)
         .get(`/server/contributor/contributor/${id}`)
@@ -100,7 +100,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should get invalid", (done) => {
+    it("should get invalid", (done) => {
       const invalidId = 0
       chai
         .request(app)
@@ -130,7 +130,7 @@ describe("server/contributor/contributor", () => {
 
   describe("POST", () => {
     const id = []
-    step("should accept new contact with right format", (done) => {
+    it("should accept new contact with right format", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -144,7 +144,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should accept new contact with minimum optionals", (done) => {
+    it("should accept new contact with minimum optionals", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -158,7 +158,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should reject new contact with duplicate email", (done) => {
+    it("should reject new contact with duplicate email", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -173,7 +173,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should reject new contact with invalid email", (done) => {
+    it("should reject new contact with invalid email", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -188,7 +188,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should reject new contact with non-alphanumeric name", (done) => {
+    it("should reject new contact with non-alphanumeric name", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -203,7 +203,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step("should reject new contact with invalid phone number", (done) => {
+    it("should reject new contact with invalid phone number", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -244,7 +244,7 @@ describe("server/contributor/contributor", () => {
       id.push(contrib._id.toString())
     })
 
-    step("should successfully update", (done) => {
+    it("should successfully update", (done) => {
       chai
         .request(app)
         .put(`/server/contributor/contributor/${id}`)
@@ -260,7 +260,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    step(" updated Contributor fields has changed to expected value", (done) => {
+    it(" updated Contributor fields has changed to expected value", (done) => {
       chai.request(app)
           .get(`/server/contributor/contributor/${id}`)
           .end((err, res) => {
@@ -275,7 +275,7 @@ describe("server/contributor/contributor", () => {
     })
   })
 
-    step("should return invalid document found", (done) => {
+    it("should return invalid document found", (done) => {
       const invalidId = 0
       chai
         .request(app)
@@ -320,7 +320,7 @@ describe("server/contributor/contributor", () => {
         id = contrib._id.toString()
       })
 
-      step("should return a error when deleting a non existent contributor", (done) => {
+      it("should return a error when deleting a non existent contributor", (done) => {
         const invalidId = 0
         chai
           .request(app)
@@ -337,7 +337,7 @@ describe("server/contributor/contributor", () => {
           })
       })
       
-      step("should successfully delete the contributor", (done) => {
+      it("should successfully delete the contributor", (done) => {
         chai
           .request(app)
           .del(`/server/contributor/contributor/${id}`)
@@ -358,7 +358,7 @@ describe("server/contributor/contributor", () => {
       
       })
     describe("Deletion pt 2", () => {
-      step("should be unable to get the deleted contributor", (done) => {
+      it("should be unable to get the deleted contributor", (done) => {
         chai.request(app)
             .get(`/server/contributor/contributor/${id}`)
             .end((err, res) => {
