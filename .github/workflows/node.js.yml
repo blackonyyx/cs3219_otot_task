@@ -27,7 +27,6 @@ jobs:
     
     - name: Load Configuration File
       run: |
-        cd backend
         echo "${{secrets.DOTENV_CONFIG}}" | base64 --decode > .env
         echo "${{secrets.GCP_SA_KEY}}" > united-perigee-318916-407034b16ebf.json
     
@@ -38,7 +37,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'backend/package-lock.json' # THIS PATTERN did the trick for me.
     - run: |
-        cd backend
         npm run build --if-present
     
     - uses: nick-fields/retry@v2 # retrys npm testing 3 times
@@ -47,7 +45,6 @@ jobs:
         max_attempts: 10
         retry_wait_seconds: 15
     - run: |
-        cd backend
         npm test
 
   deploy-backend:
