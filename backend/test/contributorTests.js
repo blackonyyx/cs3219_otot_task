@@ -4,6 +4,7 @@ import Contributor from "../lib/api/model/contributorModel.js"
 import app from "../lib/server.js"
 import chai from "chai"
 import chaiHttp from "chai-http"
+import { step } from "mocha-steps"
 
 // Configure chai
 chai.use(chaiHttp)
@@ -71,7 +72,7 @@ describe("server/contributor/contributor", () => {
       id = contrib._id.toString()
     })
 
-    it("should get all contributor records", (done) => {
+    step("should get all contributor records", (done) => {
       chai
         .request(app)
         .get("/server/contributor/contributor")
@@ -82,7 +83,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should get single contact by specific id", (done) => {
+    step("should get single contact by specific id", (done) => {
       chai
         .request(app)
         .get(`/server/contributor/contributor/${id}`)
@@ -94,7 +95,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should get invalid", (done) => {
+    step("should get invalid", (done) => {
       const invalidId = 0
       chai
         .request(app)
@@ -124,7 +125,7 @@ describe("server/contributor/contributor", () => {
 
   describe("POST", () => {
     const id = []
-    it("should accept new contact with right format", (done) => {
+    step("should accept new contact with right format", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -138,7 +139,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should accept new contact with minimum optionals", (done) => {
+    step("should accept new contact with minimum optionals", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -152,7 +153,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should reject new contact with duplicate email", (done) => {
+    step("should reject new contact with duplicate email", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -167,7 +168,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should reject new contact with invalid email", (done) => {
+    step("should reject new contact with invalid email", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -182,7 +183,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should reject new contact with non-alphanumeric name", (done) => {
+    step("should reject new contact with non-alphanumeric name", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -197,7 +198,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should reject new contact with invalid phone number", (done) => {
+    step("should reject new contact with invalid phone number", (done) => {
       chai
         .request(app)
         .post("/server/contributor/contributor")
@@ -230,7 +231,7 @@ describe("server/contributor/contributor", () => {
 
   describe("PUT/PATCH", () => {
     let id = []
-    beforeEach(() => {
+    before(() => {
       const contrib = new Contributor(createContributorPassMinFields2)
       contrib.save((err) => {
         if (err) console.log(err)
@@ -238,13 +239,12 @@ describe("server/contributor/contributor", () => {
       id.push(contrib._id.toString())
     })
 
-    it("should successfully update", (done) => {
+    step("should successfully update", (done) => {
       chai
         .request(app)
         .put(`/server/contributor/contributor/${id}`)
         .send(updateContributorPass)
         .end((err, res) => {
-          console.log("HI", res)
           res.should.have.status(200)
           res.body.should.be.a("object")
           res.body.should.have.property("data")
@@ -255,7 +255,22 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    it("should return invalid document found", (done) => {
+    step(" updated Contributor fields has changed to expected value", (done) => {
+      chai.request(app)
+          .get(`/server/contributor/contributor/${id}`)
+          .end((err, res) => {
+            res.should.have.status(200)
+            res.body.should.be.a("object")
+            res.body.should.have.property("data")
+            res.body.data.should.have.property("name").eql(updateContributorPass.name)
+            res.body.data.should.have.property("gender").eql(updateContributorPass.gender)
+            res.body.data.should.have.property("phone").eql(updateContributorPass.phone)
+            res.body.data.should.have.property("userDescription").eql(updateContributorPass.userDescription)
+            done()
+    })
+  })
+
+    step("should return invalid document found", (done) => {
       const invalidId = 0
       chai
         .request(app)
@@ -271,7 +286,7 @@ describe("server/contributor/contributor", () => {
         })
     })
 
-    afterEach(() => {
+    after(() => {
       // cleanup
       id.forEach((i) => {
         Contributor.deleteOne(
@@ -290,8 +305,8 @@ describe("server/contributor/contributor", () => {
   })
 
   describe("DELETE", () => {
+    let id = 0
     describe("Successful Deletion", () => {
-      let id = 0
       before(() => {
         const contrib = new Contributor(createContributorPassMinFields)
         contrib.save((err) => {
@@ -299,26 +314,12 @@ describe("server/contributor/contributor", () => {
         })
         id = contrib._id.toString()
       })
-      it("should successfully delete the contributor", (done) => {
-        chai
-          .request(app)
-          .delete(`/server/contributor/contributor/${id}`)
-          .end((err, res) => {
-            res.should.have.status(200)
-            res.body.should.be.a("object")
-            res.body.should.have.property("status").eql("success")
-            res.body.should.have
-              .property("message")
-              .eql(`Contributor ${id} deleted successfully`)
-            done()
-          })
-      })
 
-      it("should return a error  delete the contributor", (done) => {
+      step("should return a error when deleting a non existent contributor", (done) => {
         const invalidId = 0
         chai
           .request(app)
-          .delete(`/server/contributor/contributor/${invalidId}`)
+          .del(`/server/contributor/contributor/${invalidId}`)
           .end((err, res) => {
             res.should.have.status(500)
             res.body.should.be.a("object")
@@ -326,9 +327,51 @@ describe("server/contributor/contributor", () => {
             res.body.should.have
               .property("message")
               .eql(`Contributor Id not found`)
+            
             done()
           })
       })
+      
+      step("should successfully delete the contributor", (done) => {
+        chai
+          .request(app)
+          .del(`/server/contributor/contributor/${id}`)
+          .end((err, res) => {
+              console.log("in before delete",id)
+              res.should.have.status(200)
+            res.body.should.be.a("object")
+            res.body.should.have.property("status").eql("success")
+            res.body.should.have
+              .property("message")
+              .eql(`Contributor ${id} deleted successfully`)
+
+            
+            done()
+          })
+      })
+
+      
+      })
+    describe("Deletion pt 2", () => {
+      step("should be unable to get the deleted contributor", (done) => {
+        chai.request(app)
+            .get(`/server/contributor/contributor/${id}`)
+            .end((err, res) => {
+              console.log("in after delete",id)
+              res.should.have.status(404)
+              res.body.should.be.a("object")
+              res.body.should.have.property("message").eql("file not found")
+              done()
+            })
+    })
+
+      // after(() => {
+      //   Contributor.findByIdAndDelete(id, (err) => {
+      //       if (err) {
+      //           console.log(err)
+      //       }
+      //   })
+      // })
     })
   })
 })

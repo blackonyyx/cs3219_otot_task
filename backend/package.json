@@ -4,7 +4,7 @@
   "description": "An app to pass CS3219_OTOT_Task_B",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 20000 -r @babel/register --exit",
+    "test": "mocha --timeout 20000 -r @babel/register -r mocha-steps --exit",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && babel lib -d dist",
     "start": "node dist/server.js",
@@ -72,6 +72,7 @@
     "json-loader": "^0.5.7",
     "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
+    "mocha-steps": "^1.3.0",
     "nodemon": "^2.0.19",
     "prettier": "2.7.1",
     "snazzy": "^9.0.0",

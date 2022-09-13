@@ -61,7 +61,7 @@ export const viewContributor = async function (req, res) {
     Contributor.findById(
       req.params.contributor_id,
       function (err, contributor) {
-        if (err) {
+        if (err || contributor === null) {
           return res.status(404).json({
             error: err,
             message: "file not found",
