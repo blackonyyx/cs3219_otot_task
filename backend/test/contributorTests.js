@@ -66,7 +66,20 @@ const updateContributorPass = {
   userDescription: "Cheap food, steals and deals",
 }
 
+const deleteEmails = [
+  contributorPass.email, contributorPass2.email, createContributorPassMinFields.email, createContributorPassMinFields2.email, createContributorPassMinFields3.email
+]
+
 describe("server/contributor/contributor", () => {
+  before(() => {
+    deleteEmails.forEach((x)=> {
+      try {
+        Contributor.deleteOne({email : x})
+      } catch (err) {
+        
+      }
+    })
+  })
   describe("GET", () => {
     let id = 0
     before(() => {
