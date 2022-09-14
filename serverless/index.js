@@ -1,8 +1,6 @@
 const functions = require('@google-cloud/functions-framework');
 const axios = require('axios');
 const url = require('url');
-const body = require('body-parser')
-
 /**
  * Responds to an HTTP request using data from the request body parsed according
  * to the "content-type" header.
@@ -10,7 +8,7 @@ const body = require('body-parser')
  * @param {Object} req Cloud Function request context.
  * @param {Object} res Cloud Function response context.
  */
-functions.http('queryRecipe', (req, res) => {
+exports.func =  functions.http('queryrecipe', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     
     const query = JSON.parse(JSON.stringify(url.parse(req.url,true).query));

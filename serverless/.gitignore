@@ -35,5 +35,6 @@ node_modules
 # OS
 .DS_Store
 .tmp
-
+.env
 united-perigee-318916-380388633427.json
+Serverless API Endpoint.postman_collection.json
