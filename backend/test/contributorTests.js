@@ -74,7 +74,7 @@ describe("server/contributor/contributor", () => {
   before(() => {
     deleteEmails.forEach((x)=> {
       try {
-        Contributor.deleteOne({email : x})
+        Contributor.deleteMany({email : x})
       } catch (err) {
         console.log(err)
       }
