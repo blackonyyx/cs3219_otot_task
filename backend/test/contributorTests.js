@@ -12,7 +12,7 @@ chai.should()
 
 const contributorPass = {
   name: "John",
-  email: "john6356@gmail.com",
+  email: "john@gmail.com",
   gender: "male",
   phone: "88888888",
   userDescription: "Lorum Ipsum",
