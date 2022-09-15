@@ -1,19 +1,15 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'React'
 import axios from "axios"
-import { BASE_URL } from '../url'
-import { Form } from 'react-bootstrap'
+import { BASE_URL } from '../urls'
+import { Form, Button } from 'react-bootstrap'
 
-export default function PopupUpdateContributorForm({id, data, reloader, closer}) {
+export default function PopupCreateContributorForm({closer, reloader}) {
     const [contributor, setContributor] = useState({
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        gender: data.String,
-        phone: data.phone,
-        create_date: data.create_date,
-        update_date: data.update_date,
-        userDescription: data.userDescription
+        name: "",
+        email: "",
+        gender: "",
+        phone: "",
+        userDescription: ""
     })
 
     const handleChange = (event)=> {
@@ -47,9 +43,16 @@ export default function PopupUpdateContributorForm({id, data, reloader, closer})
             phone: contributor.phone,
             userDescription: contributor.userDescription
         }
-        axios.put(`${BASE_URL}/${contributor.id}`, data).then((res)=> {
+        axios.post(`${BASE_URL}/contributor/contributor`, data).then((res)=> {
             reloader()
             closer()
+        })
+        setContributor({
+            name: "",
+            email: "",
+            gender: "",
+            phone: "",
+            userDescription: ""
         })
     }
 
@@ -59,7 +62,7 @@ export default function PopupUpdateContributorForm({id, data, reloader, closer})
                 <div className="d-flex justify-content-end">
                     <Button variant="dark" className="float-right mb-3" onClick={closer}>Close</Button>
                 </div>
-                <h2>Edit Contributor Information</h2>
+                <h2>Register New Contributor</h2>
                 <Form>
                 <Form.Group className="mb-3">
                 <Form.Label>Name: </Form.Label><br/>

@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'React'
 import axios from "axios"
 import { BASE_URL } from '../url'
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 export default function PopupUpdateContributorForm({id, data, reloader, closer}) {
     const [contributor, setContributor] = useState({
@@ -47,7 +46,7 @@ export default function PopupUpdateContributorForm({id, data, reloader, closer})
             phone: contributor.phone,
             userDescription: contributor.userDescription
         }
-        axios.put(`${BASE_URL}/${contributor.id}`, data).then((res)=> {
+        axios.put(`${BASE_URL}/contributor/contributor/${contributor.id}`, data).then((res)=> {
             reloader()
             closer()
         })
@@ -91,3 +90,4 @@ export default function PopupUpdateContributorForm({id, data, reloader, closer})
         </div>
     )
 }
+
