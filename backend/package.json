@@ -2,7 +2,7 @@
   "name": "cs3219_otot_task",
   "version": "1.0.0",
   "description": "An app to pass CS3219_OTOT_Task_B",
-  "main": "server.js",
+  "main": "lib/server.js",
   "scripts": {
     "test": "mocha --timeout 30000 -r @babel/register -r mocha-steps --exit",
     "clean": "rm -rf dist && mkdir dist",
