@@ -7,7 +7,7 @@
     "test": "mocha --timeout 30000 -r @babel/register -r mocha-steps --exit",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && babel lib -d dist",
-    "start": "npm run build && node dist/server.js",
+    "start": "node dist/server.js",
     "dev": "nodemon --exec babel-node server.js",
     "serve": "node dist/server.js"
   },

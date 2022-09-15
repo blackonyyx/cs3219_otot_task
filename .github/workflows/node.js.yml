@@ -44,6 +44,7 @@ jobs:
         retry_wait_seconds: 15
         command: |
           cd backend
+          npm run build
           npm test
 
   deploy-backend:
