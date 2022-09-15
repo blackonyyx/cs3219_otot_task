@@ -76,7 +76,6 @@ describe("server/contributor/contributor", () => {
       try {
         Contributor.deleteMany({email : x})
       } catch (err) {
-        console.log(err)
       }
     })
   })
