@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "9c8efc37-41d5-4f5a-9c86-431350471bb1",
+		"name": "Serverless API Endpoint",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13132944"
+	},
+	"item": [
+		{
+			"name": "Serverless Function call",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-RapidAPI-Key",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "X-RapidAPI-Host",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://queryrecipe-xtrsrko6oa-de.a.run.app/?name=egg&ingredients=egg&tags=&maxPrepareTime=&maxCookTime=&maxSugar=&maxAddedSugar=&maxNetCarbs= &special_diet=&religious=&allergy1=&allergy2=&allergy3=&allergy4=&byCalories=140&byFat=15",
+					"protocol": "https",
+					"host": [
+						"queryrecipe-xtrsrko6oa-de",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "egg"
+						},
+						{
+							"key": "ingredients",
+							"value": "egg"
+						},
+						{
+							"key": "tags",
+							"value": ""
+						},
+						{
+							"key": "maxPrepareTime",
+							"value": ""
+						},
+						{
+							"key": "maxCookTime",
+							"value": ""
+						},
+						{
+							"key": "maxSugar",
+							"value": ""
+						},
+						{
+							"key": "maxAddedSugar",
+							"value": ""
+						},
+						{
+							"key": "maxNetCarbs",
+							"value": " "
+						},
+						{
+							"key": "special_diet",
+							"value": ""
+						},
+						{
+							"key": "religious",
+							"value": ""
+						},
+						{
+							"key": "allergy1",
+							"value": ""
+						},
+						{
+							"key": "allergy2",
+							"value": ""
+						},
+						{
+							"key": "allergy3",
+							"value": ""
+						},
+						{
+							"key": "allergy4",
+							"value": ""
+						},
+						{
+							"key": "byCalories",
+							"value": "140"
+						},
+						{
+							"key": "byFat",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
