@@ -12,13 +12,12 @@ import dotenv from "dotenv"
 import compression from "compression"
 import recipeRoutes from "./api/api-routes/recipeRoutes.js"
 import contactRoutes from "./api/api-routes/contributorRoutes.js"
-// import errorController from "./api/error/errorController.js"
-// import userRoutes from './server/api-routes/userRoutes.js'
+import cors from 'cors'
 import connectDB from "./api/model/db.js"
 // import template from './views/layouts/template.js'
 dotenv.config()
 const app = express()
-
+app.use(cors())
 app.use(compression())
 app.use(express.static("public"))
 app.use(bodyParser.json())

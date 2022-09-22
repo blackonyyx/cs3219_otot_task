@@ -17,6 +17,8 @@ var _recipeRoutes = _interopRequireDefault(require("./api/api-routes/recipeRoute
 
 var _contributorRoutes = _interopRequireDefault(require("./api/api-routes/contributorRoutes.js"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var _db = _interopRequireDefault(require("./api/model/db.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29,12 +31,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import App from './app/index.js'
 // import routes from './server/api-routes/recipeRoutes.js'
 // import expressLayouts from 'express-ejs-layouts';
-// import errorController from "./api/error/errorController.js"
-// import userRoutes from './server/api-routes/userRoutes.js'
 // import template from './views/layouts/template.js'
 _dotenv.default.config();
 
 const app = (0, _express.default)();
+app.use((0, _cors.default)());
 app.use((0, _compression.default)());
 app.use(_express.default.static("public"));
 app.use(_bodyParser.default.json());
