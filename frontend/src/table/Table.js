@@ -1,8 +1,11 @@
 import React from 'react'
-import { useTable, useFilters, useGlobalFilter, useSortBy } from "react-table"
+import { useTable, useFilters, useGlobalFilter, useSortBy, usePagination } from "react-table"
 import { DefaultColumnFilter, fuzzyTextFilterFn, GlobalFilter } from './filters'
+import BTable from 'react-bootstrap/Table';
+import DeleteContributorButton from '../Button/DeleteContributorButton';
+import UpdateContributorButton from '../Button/UpdateContributorButton';
 
-export default function Table({ columns, data }) {
+export default function Table({type ,columns, data, reload }) {
     // Table component logic and UI come here
     const filterTypes = React.useMemo(
         () => ({
@@ -30,44 +33,63 @@ export default function Table({ columns, data }) {
         }),
         []
       )
-
+        console.log("table component", type, data)
     const { 
         getTableProps, 
         getTableBodyProps, 
         headerGroups, 
-        rows, 
         prepareRow, 
-        state, 
+        page,
+        state,
         visibleColumns, 
         preGlobalFilteredRows,
         setGlobalFilter,
-        
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        state: {pageIndex, pageSize}, 
     } = useTable({
         columns,
         data,
+        initialState: {pageIndex: 0},
         defaultColumn, 
         filterTypes
     }, 
     useFilters,
     useGlobalFilter,
-    useSortBy 
+    useSortBy,
+    usePagination
     )
 
     return (
-    
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+        <>
+        <pre>
+        <code>
+          {JSON.stringify(
+            {
+              pageIndex,
+              pageSize,
+              pageCount,
+              canNextPage,
+              canPreviousPage,
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+        <BTable variant="dark" striped bordered hover size="sm" {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
-                  style={{
-                    borderBottom: 'solid 3px red',
-                    background: 'aliceblue',
-                    color: 'black',
-                    fontWeight: 'bold',
-                  }}
                 >
                   {column.render('Header')}
                   <div>{column.canFilter ? column.render('Filter') : null}</div>
@@ -80,12 +102,17 @@ export default function Table({ columns, data }) {
                   </span>
                 </th>
               ))}
+              {type==="contributor" &&
+                <th></th>
+                }
+            {type==="contributor"&& 
+                    <th></th>
+            }
             </tr>
           ))}
-        </thead>
-        <tr>
+          <tr>
             <th
-              colSpan={visibleColumns.length}
+              colSpan={type==="contributor" ? visibleColumns.length :visibleColumns.length}
               style={{
                 textAlign: 'left',
               }}
@@ -97,30 +124,80 @@ export default function Table({ columns, data }) {
               />
             </th>
           </tr>
+        </thead>
+        
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td
-                      {...cell.getCellProps()}
-                      style={{
-                        padding: '10px',
-                        border: 'solid 1px gray',
-                        background: 'papayawhip',
-                      }}
+                        {...cell.getCellProps({style:{ width: cell.column.width }}
+                      )}
                     >
                       {cell.render('Cell')}
                     </td>
                   )
                 })}
+                {type==="contributor" &&
+                <td><UpdateContributorButton contributor={row.original}  ></UpdateContributorButton></td>
+                }
+                {type==="contributor"&& 
+                    <td><DeleteContributorButton contributor_id={row.original._id} reload={reload}></DeleteContributorButton></td>
+                }
               </tr>
+              
             )
           })}
         </tbody>
-      </table>
+      </BTable>
+      <div className="pagination">
+      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        {'<<'}
+      </button>{' '}
+      <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        {'<'}
+      </button>{' '}
+      <button onClick={() => nextPage()} disabled={!canNextPage}>
+        {'>'}
+      </button>{' '}
+      <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+        {'>>'}
+      </button>{' '}
+      <span>
+        Page{' '}
+        <strong>
+          {pageIndex + 1} of {pageOptions.length}
+        </strong>{' '}
+      </span>
+      <span>
+        | Go to page:{' '}
+        <input
+          type="number"
+          defaultValue={pageIndex + 1}
+          onChange={e => {
+            const page = e.target.value ? Number(e.target.value) - 1 : 0
+            gotoPage(page)
+          }}
+          style={{ width: '100px' }}
+        />
+      </span>{' '}
+      <select
+        value={pageSize}
+        onChange={e => {
+          setPageSize(Number(e.target.value))
+        }}
+      >
+        {[10, 20, 30, 40, 50].map(pageSize => (
+          <option key={pageSize} value={pageSize}>
+            Show {pageSize}
+          </option>
+        ))}
+      </select>
+    </div>
+      </>
     )
 }
 

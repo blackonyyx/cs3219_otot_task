@@ -1,9 +1,9 @@
-import React, {useState} from 'React'
+import React, { useState } from 'react'
 import axios from "axios"
 import { BASE_URL } from '../urls'
 import { Form, Button } from 'react-bootstrap'
 
-export default function PopupCreateContributorForm({closer, reloader}) {
+async function PopupCreateContributorForm({closer, reloader}) {
     const [contributor, setContributor] = useState({
         name: "",
         email: "",
@@ -94,3 +94,4 @@ export default function PopupCreateContributorForm({closer, reloader}) {
         </div>
     )
 }
+export default PopupCreateContributorForm

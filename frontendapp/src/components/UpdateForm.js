@@ -1,6 +1,6 @@
-import React, {useState} from 'React'
+import React, {useState} from 'react'
 import axios from "axios"
-import { BASE_URL } from '../url'
+import { BASE_URL } from '../urls'
 import { Form, Button } from 'react-bootstrap'
 
 export default function PopupUpdateContributorForm({id, data, reloader, closer}) {
@@ -34,22 +34,23 @@ export default function PopupUpdateContributorForm({id, data, reloader, closer})
 
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        if (!(contributor.email.trim() && contributor.name.trim())) {
-            alert("Email and Name are required fields")
-            return
-        }
-        const data = {
-            name: contributor.name,
-            email: contributor.email,
-            gender: contributor.String,
-            phone: contributor.phone,
-            userDescription: contributor.userDescription
-        }
-        axios.put(`${BASE_URL}/contributor/contributor/${contributor.id}`, data).then((res)=> {
-            reloader()
-            closer()
-        })
+        console.log(event)
+        // event.preventDefault()
+        // if (!(contributor.email.trim() && contributor.name.trim())) {
+        //     alert("Email and Name are required fields")
+        //     return
+        // }
+        // const data = {
+        //     name: contributor.name,
+        //     email: contributor.email,
+        //     gender: contributor.String,
+        //     phone: contributor.phone,
+        //     userDescription: contributor.userDescription
+        // }
+        // axios.put(`${BASE_URL}/contributor/contributor/${contributor.id}`, data).then((res)=> {
+        //     reloader()
+        //     closer()
+        // })
     }
 
     return (
