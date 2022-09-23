@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run: # run subsequent functions in ./frontend 
-        working-directory: ./frontend
+        working-directory: /frontend
     steps:
     - name: Deploy frontend to github pages
       run: |
