@@ -4,9 +4,9 @@ import CreateContributorForm from './forms/CreateContributorForm';
 import Table from './table/Table';
 import { ContributorColumn, MotherlessColumns } from './table/TableColumns';
 import { getContributorIndex } from './services/contributorservices';
-import ServerlessForm from './forms/ServerlessForm';
 import { getMotherlessSearch } from './services/serverless';
 import { Form, Button, Col, Row } from 'react-bootstrap'
+import Topbar from './TopBar/Topbar';
 
 function App() {
   const [displayCreate, setDisplayCreate] = useState(false)
@@ -86,12 +86,13 @@ function App() {
 
   return (
     <div className="App">  
+      <Topbar />
       <Button variant="primary" onClick={loadData}>Reload Index</Button> 
       <Button variant="secondary" onClick={closerCreate}>Add Contributor</Button> 
       <CreateContributorForm show={displayCreate} onHide={closerCreate} />
       <Table columns={ContributorColumn} data={data} reload={loadData} type="contributor" />
       {/* <ServerlessForm sendback={(d)=>setServerless(d)} /> */}
-      <div>
+      <div className='Form'>
       <Form>
                 <h1>Query for Food Recipes</h1>
             <Row className="align-items-center">

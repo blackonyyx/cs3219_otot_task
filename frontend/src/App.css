@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background-image: url("/public/piratebay.png");
+  background-color: rgb(243,243,243);
+}
+
+.Form {
+  background-color: rgb(243,243,243);
+
 }
 
 .App-logo {
