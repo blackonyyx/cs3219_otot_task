@@ -70,4 +70,26 @@ jobs:
         deliverables: app.yaml
         project_id: ${{ secrets.GCP_PROJECT }}
         credentials: ${{ secrets.GCP_SA_KEY }}
+
+  deploy-frontend:
+    needs: build_backend
+    
+    runs-on: ubuntu-latest
+    defaults:
+      run: # run subsequent functions in ./frontend 
+        working-directory: /frontend
+    steps:
+    - name: Deploy frontend to github pages
+      run: |
+        git config --global user.name $user_name
+        git config --global user.email $user_email
+        git remote set-url origin https://${github_token}@github.com/${repository}
+        npm ci
+        npm run deploy
+      env:
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+        repository: ${{ github.repository }}
+        CI: false
       
