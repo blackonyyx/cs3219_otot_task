@@ -8,8 +8,8 @@ function BrandExample() {
         <Container>
           <Navbar.Brand href="#home">
             <img
-              alt=""
-              src="/piratebay.png"
+              alt="P"
+              src={process.env.PUBLIC_URL + "/piratebay.png"}
               width="30"
               height="30"
               className="d-inline-block align-top"
