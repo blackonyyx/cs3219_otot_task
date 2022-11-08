@@ -4,7 +4,15 @@ import { createClient } from 'redis'
 // handle index actions
 
 const DEFAULT_EXPIRATION = 3600
-const client = createClient()
+const client = createClient(
+  {
+    socket: {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT
+  },
+    password: process.env.REDIS_PASSWORD
+  }
+)
 client.on('error', (err) => console.log('Redis Client Error', err))
 
 function getOrSetCache(key, callback) {
