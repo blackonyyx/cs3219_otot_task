@@ -1,20 +1,58 @@
 import Contributor from "../model/contributorModel.js"
+import { createClient } from 'redis'
+
 // handle index actions
 
+const DEFAULT_EXPIRATION = 3600
+const client = createClient()
+client.on('error', (err) => console.log('Redis Client Error', err))
+
+function getOrSetCache(key, callback) {
+  return new Promise((resolve, reject) => {
+    client.get(key, async (err, data) => {
+      if (err) return reject(err)
+      if (data != null) return resolve(JSON.parse(data))
+      const newData = await callback()
+      client.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(newData))
+      resolve(newData)
+    })
+  })
+}
+
 export const showAllContributor = async (req, res) => {
-  Contributor.get((err, contributor) => {
+  client.get("contributors", (err, contributor) => {
     if (err) {
       return res.status(404).json({
-        status: "error",
+        status: "error in the cache",
         message: err,
       })
     }
+    if (contributor != null ){
     return res.status(200).json({
       status: "success",
-      message: "Contributors retrieved successfully",
-      data: contributor,
+      message: "Contributors retrieved successfully from cache",
+      data: JSON.parse(contributor)
+    }) 
+  } else {
+    Contributor.get((err, contributor) => {
+      if (err) {
+        return res.status(404).json({
+          status: "error",
+          message: err,
+        })
+      }
+  
+      client.setEx("contributors", DEFAULT_EXPIRATION, contributor)
+      return res.status(200).json({
+        status: "success",
+        message: "Contributors retrieved successfully",
+        data: contributor,
+      })
     })
+    }
+
   })
+  
 }
 
 // create contact actions
@@ -36,6 +74,7 @@ export const createContributor = async (req, res) => {
     }
     const contributor = new Contributor(val)
     await contributor.save()
+    client.del("contributors")
     return res.status(201).json({
       message: "contributor has been created",
       data: contributor,
@@ -58,21 +97,24 @@ export const createContributor = async (req, res) => {
 // Contributor view
 export const viewContributor = async function (req, res) {
   try {
-    Contributor.findById(
-      req.params.contributor_id,
-      function (err, contributor) {
-        if (err || contributor === null) {
-          return res.status(404).json({
-            error: err,
-            message: "file not found",
+    getOrSetCache(req.params.contributor_id, 
+      Contributor.findById(
+        req.params.contributor_id,
+        function (err, contributor) {
+          if (err || contributor === null) {
+            return res.status(404).json({
+              error: err,
+              message: "file not found",
+            })
+          }
+          return res.status(200).json({
+            message: "Contributor details are loading",
+            data: contributor,
           })
         }
-        return res.status(200).json({
-          message: "Contributor details are loading",
-          data: contributor,
-        })
-      }
+      )
     )
+    
   } catch (err) {
     return res.status(400).json({
       error: err,
@@ -113,6 +155,7 @@ export const updateContributor = function (req, res) {
           message: "Validation Error Occurred",
         })
       }
+      client.del("contributors")
       return res.status(200).json({
         message: "Contributor Info updated",
         data: contributor,
@@ -134,6 +177,7 @@ export const deleteContributor = async function (req, res) {
           message: "Contributor Id not found",
         })
       } else {
+        client.del("contributors")
         res.status(200).json({
           status: "success",
           message: `Contributor ${req.params.contributor_id} deleted successfully`,

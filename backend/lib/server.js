@@ -14,6 +14,7 @@ import recipeRoutes from "./api/api-routes/recipeRoutes.js"
 import contactRoutes from "./api/api-routes/contributorRoutes.js"
 import cors from 'cors'
 import connectDB from "./api/model/db.js"
+
 // import template from './views/layouts/template.js'
 dotenv.config()
 const app = express()
