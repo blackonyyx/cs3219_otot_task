@@ -7,23 +7,57 @@ exports.viewContributor = exports.updateContributor = exports.showAllContributor
 
 var _contributorModel = _interopRequireDefault(require("../model/contributorModel.js"));
 
+var _redis = require("../../cache/redis.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // handle index actions
+function getOrSetCache(key, callback) {
+  return new Promise((resolve, reject) => {
+    const client = (0, _redis.createRedisClient)();
+    client.get(key, async (err, data) => {
+      if (err) return reject(err);
+      if (data != null) return resolve(JSON.parse(data));
+      const newData = await callback();
+      client.setEx(key, _redis.DEFAULT_EXPIRATION, JSON.stringify(newData));
+      resolve(newData);
+    });
+  });
+}
+
 const showAllContributor = async (req, res) => {
-  _contributorModel.default.get((err, contributor) => {
+  const client = (0, _redis.createRedisClient)();
+  client.get("contributors", (err, contributor) => {
     if (err) {
       return res.status(404).json({
-        status: "error",
+        status: "error in the cache",
         message: err
       });
     }
 
-    return res.status(200).json({
-      status: "success",
-      message: "Contributors retrieved successfully",
-      data: contributor
-    });
+    if (contributor != null) {
+      return res.status(200).json({
+        status: "success",
+        message: "Contributors retrieved successfully from cache",
+        data: JSON.parse(contributor)
+      });
+    } else {
+      _contributorModel.default.get((err, contributor) => {
+        if (err) {
+          return res.status(404).json({
+            status: "error",
+            message: err
+          });
+        }
+
+        client.setEx("contributors", _redis.DEFAULT_EXPIRATION, contributor);
+        return res.status(200).json({
+          status: "success",
+          message: "Contributors retrieved successfully",
+          data: contributor
+        });
+      });
+    }
   });
 }; // create contact actions
 
@@ -52,8 +86,10 @@ const createContributor = async (req, res) => {
 
     const contributor = new _contributorModel.default(val);
     await contributor.save();
+    const client = (0, _redis.createRedisClient)();
+    client.del("contributors");
     return res.status(201).json({
-      message: "contributor has been created",
+      message: "contributor has been created and cache is cleared",
       data: contributor
     });
   } catch (err) {
@@ -76,7 +112,7 @@ exports.createContributor = createContributor;
 
 const viewContributor = async function (req, res) {
   try {
-    _contributorModel.default.findById(req.params.contributor_id, function (err, contributor) {
+    getOrSetCache(req.params.contributor_id, _contributorModel.default.findById(req.params.contributor_id, function (err, contributor) {
       if (err || contributor === null) {
         return res.status(404).json({
           error: err,
@@ -88,7 +124,7 @@ const viewContributor = async function (req, res) {
         message: "Contributor details are loading",
         data: contributor
       });
-    });
+    }));
   } catch (err) {
     return res.status(400).json({
       error: err
@@ -129,6 +165,7 @@ const updateContributor = function (req, res) {
     } // save contact and check for errors
 
 
+    const client = (0, _redis.createRedisClient)();
     contributor.save(function (err) {
       if (err) {
         return res.status(500).json({
@@ -137,6 +174,7 @@ const updateContributor = function (req, res) {
         });
       }
 
+      client.del("contributors");
       return res.status(200).json({
         message: "Contributor Info updated",
         data: contributor
@@ -158,6 +196,8 @@ const deleteContributor = async function (req, res) {
         message: "Contributor Id not found"
       });
     } else {
+      const client = (0, _redis.createRedisClient)();
+      client.del("contributors");
       res.status(200).json({
         status: "success",
         message: `Contributor ${req.params.contributor_id} deleted successfully`
